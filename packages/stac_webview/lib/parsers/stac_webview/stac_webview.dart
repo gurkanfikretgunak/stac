@@ -12,6 +12,12 @@ part 'stac_webview.g.dart';
 /// Renders a web page within a Flutter application using the webview_flutter package.
 /// Supports JavaScript execution, custom user agents, zoom controls, and layout direction.
 ///
+/// **Performance Considerations:**
+/// - Efficient JSON serialization via code generation (json_serializable)
+/// - WebView controller is only recreated when URL changes
+/// - Other property updates are applied to existing controller without recreation
+/// - Optimized color parsing for backgroundColor property
+///
 /// ```dart
 /// StacWebView(
 ///   url: 'https://example.com',
