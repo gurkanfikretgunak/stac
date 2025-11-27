@@ -1,20 +1,46 @@
+# Melos configuration file for the STAC monorepo
+# Melos is a tool for managing Dart/Flutter monorepos, enabling you to run commands
+# across multiple packages, manage dependencies, versioning, and publishing workflows
 name: stac
 
+# Package discovery paths
+# Melos will automatically discover all packages in these directories
+# Packages are identified by the presence of a pubspec.yaml file
 packages:
-  - packages/*
-  - examples/*
+  - packages/*      # Core packages (stac, stac_core, stac_framework, stac_logger, stac_webview)
+  - examples/*      # Example applications (counter_example, movie_app, stac_gallery)
 
+# Workspace scripts that can be run with: melos run <script_name>
+# These scripts execute commands across all packages in the monorepo
 scripts:
+  # Run static analysis on all packages
+  # Checks for errors, warnings, and lint issues across the codebase
   analyze:
     exec: dart analyze .
+
+  # Format all Dart code in the workspace
+  # Ensures consistent code style across all packages
   format:
     exec: dart format .
+
+  # Get dependencies for all packages
+  # Runs 'flutter pub get' in each package directory
   get:
     exec: flutter pub get
+
+  # Build generated code using build_runner
+  # Generates code from annotations (e.g., json_serializable, freezed)
+  # --delete-conflicting-outputs removes old generated files before building
+  # Excludes packages that don't use code generation
   build:
     exec: dart run build_runner build --delete-conflicting-outputs
     packageFilters:
       ignore: [stac_framework, movie_app, stac_logger]
+
+  # Watch mode for build_runner
+  # Automatically rebuilds generated code when source files change
+  # Useful during development for continuous code generation
+  # Excludes packages that don't use code generation
   watch:
     exec: dart run build_runner watch --delete-conflicting-outputs
     packageFilters:

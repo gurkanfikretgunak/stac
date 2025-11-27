@@ -1,8 +1,15 @@
+# Workspace-level pubspec.yaml for the STAC monorepo
+# This file configures the root workspace and is used by Melos to manage
+# the monorepo structure. Individual packages have their own pubspec.yaml files.
 name: stac_workspace
 
+# Dart SDK version constraints for the entire workspace
+# All packages in this monorepo must be compatible with Dart SDK 3.1.0 or higher
 environment:
   sdk: '>=3.1.0 <4.0.0'
 
+# Development dependencies for workspace-level tooling
+# Melos is used for managing the monorepo: running scripts, versioning, and publishing
 dev_dependencies:
   melos: ^6.3.2
   

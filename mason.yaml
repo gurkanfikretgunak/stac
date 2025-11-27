@@ -1,3 +1,10 @@
+# Mason configuration file
+# Mason is a code generator that uses "bricks" (reusable templates) to scaffold code
+# This file registers local bricks available in this workspace
+
 bricks:
+  # STAC Parser brick - a code template for generating STAC parser code
+  # Located in the bricks/stac_parser directory
+  # Use with: mason make stac_parser
   stac_parser:
     path: bricks/stac_parser
