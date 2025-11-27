@@ -7,14 +7,28 @@ import 'log_stub.dart'
 
 /// A reusable logging utility for the Stac framework.
 ///
-/// Get Started
+/// **Performance Optimizations:**
+/// - Platform-specific implementations selected at compile time via conditional imports
+/// - Singleton logger instance created once and reused
+/// - Direct method delegation for minimal overhead
+/// - Web builds have zero overhead in release mode (`kDebugMode` check)
+///
+/// **Usage:**
 /// ```dart
 /// import 'package:stac_logger/stac_logger.dart';
 ///
 /// void main() {
-///   Log.d('Hello World');
+///   Log.d('Debug message');
+///   Log.i('Info message');
+///   Log.w('Warning message');
+///   Log.e('Error message');
 /// }
 /// ```
+///
+/// **Performance Tips:**
+/// - In release builds on web, debug logs are automatically disabled
+/// - For expensive string operations, consider checking log level first
+/// - The logger instance is created once and reused, minimizing allocations
 ///
 /// For information about Stac, visit [Stac](https://github.com/StacDev/stac).
 
@@ -23,9 +37,12 @@ class Log {
 
   // Get the logger instance directly from the conditionally imported file
   // The compiler will select the appropriate implementation at compile time
+  // This singleton pattern ensures the logger is created once and reused
   static final LogInterface _logger = createLogger();
 
   /// Logs a debug message
+  ///
+  /// **Performance:** On web, this has zero overhead in release builds.
   static void d(dynamic message) => _logger.d(message);
 
   /// Logs an info message
